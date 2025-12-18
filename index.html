@@ -3,67 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vídeo do Dia da Semana?</title>
+    <title>Vídeo do Dia</title>
   </head>
   <body>
-    <h1>
-      Marketing e Neuromarketing: A Psicologia Comportamental do Ciclos
-      Circadianos
-    </h1>
-    <p>
-      Adicione aquele tempero extra de personalização para fazer com que seu
-      lead sinta que este "produto" é apenas para ele, destacando o dia em que
-      você está enviando. Isso induz o cliente a acreditar que você preparou
-      esse material à mão alguns momentos atrás, quando tudo o que você fez foi
-      adicionar uma variável e automatizar toda a experiência. Psicologia do
-      Consumidor é algo poderosíssimo e eu posso provar!
-    </p>
+    <h1>Marketing e Neuromarketing</h1>
+
+    <div id="video-container"></div>
 
     <script>
-      const diaSemanaNumero = new Date().getDay(); // 0=Domingo ... 6=Sábado
-      const videoSrc = `./videos/${diaSemanaNumero}.mp4`;
+      const dia = new Date().getDay();
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const container = document.createElement("div");
-        const video = document.createElement("video");
-        const errorMsg = document.createElement("p");
+      const videosPorDia = {
+        0: "tEWkXYO89Fk",
+        1: "mIduSNOhvlA",
+        2: "inahW435rzw",
+        3: "BFiehd8W0yE",
+        4: "FTeQQLmG6p0",
+        5: "UqZhT6BArr4",
+        6: "lhSYfx-5cJg",
+      };
 
-        video.width = 560;
-        video.height = 315;
-        video.controls = true;
-        video.autoplay = true;
-        video.muted = true; // Autoplay costuma exigir video sem som
-        video.playsInline = true;
-        video.preload = "auto";
+      const videoId = videosPorDia[dia];
 
-        const source = document.createElement("source");
-        source.src = videoSrc;
-        source.type = "video/mp4";
-        video.appendChild(source);
-
-        errorMsg.style.color = "red";
-        errorMsg.hidden = true;
-
-        video.addEventListener("error", () => {
-          errorMsg.hidden = false;
-          errorMsg.textContent = `Não deu para carregar o vídeo: ${source.src}`;
-          console.error("Erro ao carregar video", video.error);
-        });
-
-        video.addEventListener("loadeddata", () => {
-          video
-            .play()
-            .catch((err) =>
-              console.warn("Autoplay possivelmente bloqueado:", err)
-            );
-        });
-
-        container.appendChild(video);
-        container.appendChild(errorMsg);
-        document.body.appendChild(container);
-
-        video.load();
-      });
+      const iframe = document.createElement("iframe");
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0`;
+      iframe.title = "Vídeo do dia";
+      iframe.frameBorder = "0";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      document.getElementById("video-container").appendChild(iframe);
     </script>
   </body>
 </html>
