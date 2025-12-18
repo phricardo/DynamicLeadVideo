@@ -21,7 +21,7 @@
 
     <script>
       const diaSemanaNumero = new Date().getDay(); // 0=Domingo ... 6=Sábado
-      const videoSrc = `videos/${diaSemanaNumero}.mp4`;
+      const videoSrc = `./videos/${diaSemanaNumero}.mp4`;
 
       document.addEventListener("DOMContentLoaded", function () {
         const container = document.createElement("div");
@@ -51,9 +51,11 @@
         });
 
         video.addEventListener("loadeddata", () => {
-          video.play().catch((err) =>
-            console.warn("Autoplay possivelmente bloqueado:", err)
-          );
+          video
+            .play()
+            .catch((err) =>
+              console.warn("Autoplay possivelmente bloqueado:", err)
+            );
         });
 
         container.appendChild(video);
