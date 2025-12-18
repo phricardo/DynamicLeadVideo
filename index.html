@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vídeo do Dia da Semana?</title>
+  </head>
+  <body>
+    <h1>
+      Marketing e Neuromarketing: A Psicologia Comportamental do Ciclos
+      Circadianos
+    </h1>
+    <p>
+      Adicione aquele tempero extra de personalização para fazer com que seu
+      lead sinta que este "produto" é apenas para ele, destacando o dia em que
+      você está enviando. Isso induz o cliente a acreditar que você preparou
+      esse material à mão alguns momentos atrás, quando tudo o que você fez foi
+      adicionar uma variável e automatizar toda a experiência. Psicologia do
+      Consumidor é algo poderosíssimo e eu posso provar!
+    </p>
+
+    <script>
+      const diaSemanaNumero = new Date().getDay(); // 0=Domingo ... 6=Sábado
+      const videoSrc = `videos/${diaSemanaNumero}.mp4`;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.createElement("div");
+        const video = document.createElement("video");
+        const errorMsg = document.createElement("p");
+
+        video.width = 560;
+        video.height = 315;
+        video.controls = true;
+        video.autoplay = true;
+        video.muted = true; // Autoplay costuma exigir video sem som
+        video.playsInline = true;
+        video.preload = "auto";
+
+        const source = document.createElement("source");
+        source.src = videoSrc;
+        source.type = "video/mp4";
+        video.appendChild(source);
+
+        errorMsg.style.color = "red";
+        errorMsg.hidden = true;
+
+        video.addEventListener("error", () => {
+          errorMsg.hidden = false;
+          errorMsg.textContent = `Não deu para carregar o vídeo: ${source.src}`;
+          console.error("Erro ao carregar video", video.error);
+        });
+
+        video.addEventListener("loadeddata", () => {
+          video.play().catch((err) =>
+            console.warn("Autoplay possivelmente bloqueado:", err)
+          );
+        });
+
+        container.appendChild(video);
+        container.appendChild(errorMsg);
+        document.body.appendChild(container);
+
+        video.load();
+      });
+    </script>
+  </body>
+</html>
